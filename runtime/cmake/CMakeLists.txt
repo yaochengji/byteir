@@ -32,6 +32,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 # Options
 option(brt_BUILD_SHARED_LIB "Build using shared libraries" ON)
 option(brt_USE_CUDA "Build with CUDA support" OFF)
+option(brt_USE_NCCL "Build with NCCL support" OFF)
 option(brt_BUILD_UNIT_TESTS "Build Runtime unit tests" ON)
 option(brt_CROSS_COMPILING "Cross compiling for another platform" OFF)
 
@@ -40,9 +41,13 @@ set(LLVM_INSTALL_PATH "" CACHE STRING "The path to the installed LLVM library")
 
 set(FLASH_ATTN_INSTALL_PATH "" CACHE STRING "The path to the installed flash attn library")
 if(FLASH_ATTN_INSTALL_PATH AND NOT brt_USE_CUDA)
-  
   message(FATAL_ERROR "config FLASH_ATTN_INSTALL_PATH=... must with brt_USE_CUDA=ON")
 endif()
+
+if(brt_USE_NCCL AND NOT brt_USE_CUDA)
+  message(FATAL_ERROR "brt_USE_NCCL=ON must with brt_USE_CUDA=ON")
+endif()
+
 
 set(brt_ENABLE_FLASH_ATTENTION false)
 if(FLASH_ATTN_INSTALL_PATH)
@@ -251,6 +256,13 @@ if(brt_USE_CUDA)
     endif()
 endif()
 
+if(brt_USE_NCCL)
+  message(STATUS "brt_USE_NCCL On")
+  find_package(NCCL REQUIRED)
+  include_directories("${NCCL_INCLUDE_DIRS}")
+  message("NCCL Include Dirs = ${NCCL_INCLUDE_DIRS}")
+endif()
+
 FILE(TO_NATIVE_PATH ${CMAKE_BINARY_DIR}  BRT_BINARY_DIR)
 FILE(TO_NATIVE_PATH ${PROJECT_SOURCE_DIR}  BRT_SOURCE_DIR)
 
@@ -272,6 +284,12 @@ if (brt_USE_CUDA)
       list(APPEND BRT_PROVIDER_FLAGS -DBRT_ENABLE_FLASH_ATTENTION=1)
       list(APPEND BRT_PROVIDER_CMAKE_FLAGS -Dbrt_ENABLE_FLASH_ATTENTION=1)
     endif()
+endif()
+
+if (brt_USE_NCCL)
+    list(APPEND BRT_PROVIDER_FLAGS -DBRT_USE_NCCL-1)
+    list(APPEND BRT_PROVIDER_CMAKE_FLAGS -Dbrt_USE_NCCL=1)
+    list(APPEND BRT_PROVIDER_NAMES nccl)
 endif()
 
 # utility functions 
