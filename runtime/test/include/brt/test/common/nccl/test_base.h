@@ -8,7 +8,7 @@
 #include <thread>
 #include <vector>
 
-#include "brt/backends/cuda/device/distributed/distributed_backend_nccl.h"
+#include "brt/backends/nccl/device/distributed_backend_nccl.h"
 #include "brt/core/common/common.h"
 #include "test_utils.h"
 

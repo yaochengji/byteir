@@ -505,6 +505,12 @@ if(brt_USE_CUDA)
   list(APPEND BRT_TARGETS brt_provider_cuda)
 endif()
 
+if(brt_USE_NCCL)
+  list(APPEND BRT_TARGETS brt_device_nccl)
+  list(APPEND BRT_TARGETS brt_provider_nccl)
+endif()
+
+
 if(brt_ENABLE_PYTHON_BINDINGS)
   list(APPEND BRT_TARGETS brt_python_bindings)
 endif()
@@ -572,6 +578,14 @@ if(brt_USE_CUDA)
   target_link_libraries(brt.objs INTERFACE
     brt_device_cuda
     brt_provider_cuda)
+endif()
+if(brt_USE_NCCL)
+  target_sources(brt.objs INTERFACE
+    $<TARGET_OBJECTS:brt_device_nccl>
+    $<TARGET_OBJECTS:brt_provider_nccl>)
+  target_link_libraries(brt.objs INTERFACE
+    brt_device_nccl
+    brt_provider_nccl)
 endif()
 
 #The following files may use the 'brt_libs' and 'brt_EXTERNAL_LIBRARIES' vars

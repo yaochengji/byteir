@@ -4,8 +4,8 @@
 // Modification Copyright 2022 ByteDance Ltd. and/or its affiliates.
 
 #include "brt/backends/cuda/device/common/cuda_call.h"
-#include "brt/backends/cuda/device/distributed/d_context_nccl.h"
-#include "brt/test/common/cuda/test_utils.h"
+#include "brt/backends/nccl/device/d_context_nccl.h"
+#include "brt/test/common/nccl/test_utils.h"
 #include <cassert>
 #include <cuda_runtime.h>
 #include <memory>

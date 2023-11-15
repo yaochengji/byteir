@@ -3,9 +3,9 @@
 // ===========================================================================
 // Modification Copyright 2022 ByteDance Ltd. and/or its affiliates.
 
-#include "brt/backends/cuda/device/distributed/distributed_backend_nccl.h"
-#include "brt/backends/cuda/device/distributed/d_context_nccl.h"
-#include "brt/backends/cuda/device/distributed/utils.h"
+#include "brt/backends/nccl/device/distributed_backend_nccl.h"
+#include "brt/backends/nccl/device/d_context_nccl.h"
+#include "brt/backends/nccl/device/utils.h"
 #include "brt/core/common/logging/logging.h"
 
 #include "nccl.h"

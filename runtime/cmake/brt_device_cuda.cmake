@@ -8,9 +8,6 @@ source_group(TREE ${REPO_ROOT} FILES ${brt_device_cuda_srcs})
 
 brt_add_object_library(brt_device_cuda ${brt_device_cuda_srcs})
 target_link_libraries(brt_device_cuda CUDA::cuda_driver CUDA::cudart CUDA::nvrtc)
-if(brt_USE_NCCL)
-  target_link_libraries(brt_device_cuda ${NCCL_LIBRARIES})
-endif()
 brt_add_include_to_target(brt_device_cuda brt_framework brt_common)
 set_target_properties(brt_device_cuda PROPERTIES FOLDER "Brt")
 

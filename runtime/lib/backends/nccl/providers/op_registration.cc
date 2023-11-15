@@ -15,7 +15,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "brt/backends/cuda/providers/default/nccl/op_registration.h"
+#include "brt/backends/nccl/providers/op_registration.h"
 
 #include "./recv.h"
 #include "./send.h"

@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "brt/backends/cuda/device/distributed/distributed_backend_nccl.h"
+#include "brt/backends/nccl/device/distributed_backend_nccl.h"
 #include <map>
 
 namespace brt {

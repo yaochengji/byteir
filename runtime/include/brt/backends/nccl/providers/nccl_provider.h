@@ -18,7 +18,7 @@
 #pragma once
 
 #include "brt/backends/common.h"
-#include "brt/backends/cuda/device/distributed/distributed_backend_nccl.h"
+#include "brt/backends/nccl/device/distributed_backend_nccl.h"
 #include "brt/core/common/status.h"
 #include "brt/core/distributed/distributed_session.h"
 #include "brt/core/framework/execution_provider.h"

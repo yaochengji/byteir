@@ -15,12 +15,12 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "brt/backends/cuda/providers/default/nccl_provider.h"
+#include "brt/backends/nccl/providers/nccl_provider.h"
 
 #include "brt/backends/common.h"
 #include "brt/backends/cuda/device/common/cuda_call.h"
 #include "brt/backends/cuda/device/cuda_allocator.h"
-#include "brt/backends/cuda/providers/default/nccl/op_registration.h"
+#include "brt/backends/nccl/providers/op_registration.h"
 #include "brt/core/framework/kernel_registry.h"
 #include <cuda_runtime.h>
 #include <memory>

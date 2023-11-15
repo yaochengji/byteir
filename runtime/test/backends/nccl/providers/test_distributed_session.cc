@@ -20,12 +20,12 @@
 #include <vector>
 
 #include "brt/backends/cuda/device/cuda_allocator.h"
-#include "brt/backends/cuda/providers/default/nccl_provider.h"
+#include "brt/backends/nccl/providers/nccl_provider.h"
 #include "brt/core/common/status.h"
 #include "brt/core/distributed/distributed_session.h"
 #include "brt/core/session/request_context.h"
-#include "brt/test/common/cuda/test_base.h"
-#include "brt/test/common/cuda/test_utils.h"
+#include "brt/test/common/nccl/test_base.h"
+#include "brt/test/common/nccl/test_utils.h"
 #include "brt/test/common/cuda/util.h"
 #include "brt/test/common/util.h"
 

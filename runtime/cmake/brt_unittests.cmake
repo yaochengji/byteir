@@ -16,6 +16,10 @@ if(brt_USE_CUDA)
   list(APPEND brt_test_common_src_patterns "${TEST_SRC_DIR}/include/brt/test/common/cuda/*.h")
 endif()
 
+if(brt_USE_NCCL)
+  list(APPEND brt_test_common_src_patterns "${TEST_SRC_DIR}/include/brt/test/common/nccl/*.h")
+endif()
+
 file(GLOB brt_test_common_src CONFIGURE_DEPENDS
   ${brt_test_common_src_patterns}
 )
@@ -96,6 +100,20 @@ if(brt_USE_CUDA)
   list(APPEND brt_test_providers_src ${brt_test_cuda_provider_src})
 endif()
 
+### test nccl providers
+if(brt_USE_NCCL)
+  set(brt_test_nccl_provider_src_patterns
+  "${TEST_SRC_DIR}/backends/nccl/providers/*.cc"
+  "${TEST_SRC_DIR}/backends/nccl/providers/*.h"
+  )
+
+  file(GLOB brt_test_nccl_provider_src CONFIGURE_DEPENDS
+    ${brt_test_nccl_provider_src_patterns}
+  )
+  
+  list(APPEND brt_test_providers_src ${brt_test_nccl_provider_src})
+endif()
+
 ## test devices
 set(brt_test_devices_src "")
 
@@ -126,6 +144,20 @@ if(brt_USE_CUDA)
   )
 
  list(APPEND brt_test_devices_src ${brt_test_cuda_device_src})
+endif()
+
+### test nccl device
+if(brt_USE_NCCL)
+  set(brt_test_nccl_device_src_patterns
+  "${TEST_SRC_DIR}/backends/nccl/device/*.cc"
+  "${TEST_SRC_DIR}/backends/nccl/device/*.h"
+  )
+
+  file(GLOB brt_test_nccl_device_src CONFIGURE_DEPENDS
+    ${brt_test_nccl_device_src_patterns}
+  )
+  
+  list(APPEND brt_test_devices_src ${brt_test_nccl_device_src})
 endif()
 
 ## include all src's  
