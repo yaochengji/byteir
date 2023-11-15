@@ -18,9 +18,11 @@
 #include "brt/backends/cuda/providers/default/nccl_provider.h"
 
 #include "brt/backends/common.h"
+#include "brt/backends/cuda/device/common/cuda_call.h"
 #include "brt/backends/cuda/device/cuda_allocator.h"
 #include "brt/backends/cuda/providers/default/nccl/op_registration.h"
 #include "brt/core/framework/kernel_registry.h"
+#include <cuda_runtime.h>
 #include <memory>
 
 using namespace brt;
@@ -48,12 +50,15 @@ NCCLExecutionProvider::NCCLExecutionProvider(const std::string &name,
 }
 
 common::Status DefaultNCCLExecutionProviderFactory(DistributedSession *session,
-                                                   int nranks, int rank,
-                                                   const std::string &ip,
-                                                   int port) {
+                                                   int local_rank) {
+  BRT_CUDA_CHECK(cudaSetDevice(local_rank));
   // create a NCCL provider
+  int rank = session->GetRank();
+  int nranks = session->GetNRanks();
+  const std::string &host = session->GetHost();
+  int port = session->GetPort();
   auto provider = std::make_unique<NCCLExecutionProvider>(
-      ProviderType::BRT, nranks, rank, ip, port);
+      ProviderType::BRT, nranks, rank, host, port);
   session->SetDistributedBackend(provider->GetDistributedBackend());
   // give ownership to the session
   return session->AddExecutionProvider(std::move(provider));

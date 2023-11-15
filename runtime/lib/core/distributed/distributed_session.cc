@@ -33,7 +33,9 @@ using namespace brt::ir;
 
 namespace brt {
 
-DistributedSession::DistributedSession(int rank) : rank_(rank), Session() {}
+DistributedSession::DistributedSession(int rank, int nranks,
+                                       const std::string &host, int port)
+    : rank_(rank), nranks_(nranks), host_(host), port_(port), Session() {}
 
 DistributedSession::~DistributedSession() {}
 
@@ -63,7 +65,7 @@ common::Status DistributedSession::Run(RequestContext &request) {
 
 common::Status
 DistributedSession::NewRequestContext(std::unique_ptr<RequestContext> *request,
-                           WorkQueue *work_queue) {
+                                      WorkQueue *work_queue) {
   *request = std::unique_ptr<RequestContext>(new RequestContext(*this));
   // alocate Frame but not allocate Intermediate
   BRT_ENFORCE(execution_plan_ != nullptr);

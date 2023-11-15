@@ -13,8 +13,8 @@
 
 #include "brt/backends/cuda/device/distributed/distributed_backend_nccl.h"
 #include "brt/core/common/common.h"
-#include "test_base.h"
-#include "test_utils.h"
+#include "brt/test/common/cuda/test_base.h"
+#include "brt/test/common/cuda/test_utils.h"
 
 using namespace brt;
 

@@ -40,8 +40,7 @@ protected:
   std::unique_ptr<DistributedBackendNCCL> nccl_backend_;
 };
 
-common::Status DefaultNCCLExecutionProviderFactory(
-    DistributedSession *session, int nranks, int rank,
-    const std::string &ip = "localhost", int port = 12345);
+common::Status DefaultNCCLExecutionProviderFactory(DistributedSession *session,
+                                                   int local_rank);
 
 } // namespace brt

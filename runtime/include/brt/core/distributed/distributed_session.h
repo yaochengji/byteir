@@ -45,7 +45,7 @@ class IRHandle;
 
 class DistributedSession : public Session {
 public:
-  DistributedSession(int rank);
+  DistributedSession(int rank, int nranks, const std::string &host, int port);
 
   virtual ~DistributedSession();
 
@@ -61,9 +61,20 @@ public:
   common::Status NewRequestContext(std::unique_ptr<RequestContext> *request,
                                    WorkQueue *work_queue = nullptr);
 
+  int GetRank() const { return rank_; }
+
+  int GetNRanks() const { return nranks_; }
+
+  const std::string &GetHost() const { return host_; }
+
+  int GetPort() const { return port_; }
+
 protected:
   DistributedBackend *distributed_backend_;
   int rank_;
+  int nranks_;
+  std::string host_;
+  int port_;
 };
 
 } // namespace brt
